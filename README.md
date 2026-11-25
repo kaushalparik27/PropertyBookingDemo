@@ -103,6 +103,4 @@ I used Claude Code (Claude Sonnet 5.5) as a pair programmer for this project.
 - **What I decided myself:** controller-style monolith, no MediatR, repositories plus managers, SQL Server in Docker, the Builder Pattern for slot search (`SlotQueryBuilder`), and the structure and rules for `Program.cs`.
 - **What it got wrong, and how it was fixed:**
   - The history row was inserted before its booking, because EF didn't know about the foreign key. Found by running the tests. Fixed by declaring the relationship in `BookingDbContext`.
-  - Its first duplicate-booking error handling caught every `DbUpdateException`, which hid that bug as a misleading 409. Narrowed to SQL duplicate-key errors only.
-  - The first SQL script run failed because `sqlcmd` needs `-I` for filtered indexes.
 - **Checked by hand:** the transaction and atomic-update logic, and what each test proves, which I can explain in the follow-up interview.
