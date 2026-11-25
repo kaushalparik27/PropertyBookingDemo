@@ -1,0 +1,30 @@
+# Build output
+bin/
+obj/
+TestResults/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Secrets and local settings
+.env
+appsettings.Development.json
+appsettings.Local.json
+*.pfx
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Assignment document
+Docs/
+
+# Claude Code local files
+.claude/
+
+# Duplicate solution format (the repo uses BookingDemo.sln)
+*.slnx
