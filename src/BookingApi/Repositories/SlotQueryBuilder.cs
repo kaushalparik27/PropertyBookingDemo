@@ -11,6 +11,7 @@ namespace BookingApi.Repositories
             _query = query;
         }
 
+        // Filters by property, if a property ID is given.
         public SlotQueryBuilder ForProperty(Guid? propertyId)
         {
             if (propertyId != null)
@@ -19,6 +20,7 @@ namespace BookingApi.Repositories
             return this;
         }
 
+        // Keeps slots starting at or after the given time, if one is given.
         public SlotQueryBuilder StartingFrom(DateTimeOffset? from)
         {
             if (from != null)
@@ -27,6 +29,7 @@ namespace BookingApi.Repositories
             return this;
         }
 
+        // Keeps slots starting at or before the given time, if one is given.
         public SlotQueryBuilder StartingUntil(DateTimeOffset? to)
         {
             if (to != null)
@@ -35,6 +38,7 @@ namespace BookingApi.Repositories
             return this;
         }
 
+        // Orders by start time and takes only the requested page.
         public SlotQueryBuilder Page(int page, int pageSize)
         {
             _query = _query
@@ -45,6 +49,7 @@ namespace BookingApi.Repositories
             return this;
         }
 
+        // Returns the finished query; it hasn't run against the database yet.
         public IQueryable<Slot> Build()
         {
             return _query;

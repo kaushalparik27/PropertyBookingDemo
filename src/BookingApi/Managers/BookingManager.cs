@@ -18,6 +18,7 @@ namespace BookingApi.Managers
             _clock = clock;
         }
 
+        // Checks the booking rules, then reserves the seats and saves a confirmed booking.
         public async Task<BookingResponse> BookAsync(Guid slotId, CreateBookingRequest request)
         {
             var slot = await _bookings.GetSlotByIdAsync(slotId)
@@ -66,6 +67,7 @@ namespace BookingApi.Managers
             return ToResponse(booking);
         }
 
+        // Validates a status change, saves it with a history entry, and frees seats on cancellation.
         public async Task<BookingResponse> TransitionAsync(Guid bookingId, TransitionRequest request)
         {
             var booking = await _bookings.GetByIdAsync(bookingId)
@@ -119,6 +121,7 @@ namespace BookingApi.Managers
             return ToResponse(booking);
         }
 
+        // Returns a booking's history, or throws NotFoundException if the booking doesn't exist.
         public async Task<List<HistoryResponse>> GetHistoryAsync(Guid bookingId)
         {
             if (!await _bookings.BookingExistsAsync(bookingId))
@@ -135,6 +138,7 @@ namespace BookingApi.Managers
             }).ToList();
         }
 
+        // Maps a Booking entity to the response DTO returned by the API.
         private static BookingResponse ToResponse(Booking booking)
         {
             return new BookingResponse

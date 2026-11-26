@@ -16,6 +16,7 @@ namespace BookingApi.Managers
             _clock = clock;
         }
 
+        // Checks that the start time is in the future, then saves a new slot with no seats booked.
         public async Task<SlotResponse> CreateAsync(CreateSlotRequest request)
         {
             var now = _clock.GetUtcNow();
@@ -38,12 +39,14 @@ namespace BookingApi.Managers
             return ToResponse(slot);
         }
 
+        // Gets the matching slots and converts them to response DTOs.
         public async Task<List<SlotResponse>> GetAsync(SlotFilter filter)
         {
             var result = await _slots.ListAsync(filter);
             return result.Select(ToResponse).ToList();
         }
 
+        // Maps a Slot entity to the response DTO and calculates the seats remaining.
         private static SlotResponse ToResponse(Slot slot)
         {
             return new SlotResponse

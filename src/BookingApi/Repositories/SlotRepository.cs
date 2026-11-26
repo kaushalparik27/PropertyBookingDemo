@@ -14,12 +14,14 @@ namespace BookingApi.Repositories
             _db = db;
         }
 
+        // Inserts a new slot into the database.
         public async Task AddAsync(Slot slot)
         {
             _db.Slots.Add(slot);
             await _db.SaveChangesAsync();
         }
 
+        // Builds the filtered and paged query, then runs it without change tracking.
         public async Task<List<Slot>> ListAsync(SlotFilter filter)
         {
             return await new SlotQueryBuilder(_db.Slots.AsNoTracking())
